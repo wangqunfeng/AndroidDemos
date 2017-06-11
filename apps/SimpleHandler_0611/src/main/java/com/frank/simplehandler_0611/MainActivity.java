@@ -31,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             if (msg.what == MSG_SET_PROGRESS) {
                 Log.d(TAG, "MyLooperHandler.handleMessage msg.what=" + msg.what + " arg1=" + msg.arg1);
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 mMainHandler.updateProgress(msg.arg1);
             }
         }
@@ -44,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             Message msg = Message.obtain();
             msg.what = MSG_SET_PROGRESS;
             msg.arg1 = arg0;
-            sendMessageDelayed(msg, 2000);
+            sendMessage(msg);
         }
     }
 
@@ -85,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             msg.what = MSG_SET_PROGRESS_MAIN;
             msg.arg1 = arg;
             msg.obj = String.format("set progress=%d", arg);
-            sendMessageDelayed(msg, 2000);
+            sendMessage(msg);
         }
     }
 
